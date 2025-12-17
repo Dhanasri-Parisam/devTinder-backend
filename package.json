@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
-    "dev" : "nodemon src/app.js"  
+    "dev": "nodemon src/app.js"
   },
   "keywords": [
     "node.js",
@@ -15,6 +15,8 @@
   "author": "Dhanasri Parisam",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.2.1"
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "mongoose": "^9.0.1"
   }
 }
