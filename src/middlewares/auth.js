@@ -1,25 +1,28 @@
-// const adminAuth = (req, res, next) => {
-//   console.log("Authentication Middleware");
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
 
-//   const token = "XYZ123";
+const userAuth = async (req, res, next) => {
+  try {
+    const { token } = req.cookies;
 
-//   if (token === "XYZ123") {
-//     next();
-//   } else {
-//     res.status(401).send("Unauthorized Access");
-//   }
-// };
+    if (!token) {
+      return res.status(401).send("Please Login!");
+    }
 
-// const userAuth = (req, res, next) => {
-//   console.log("Authentication Middleware");
+    const decodedObj = jwt.verify(token, "SecretKey@12D3");
+    const { userId } = decodedObj;
 
-//   const token = "XYZ123";
+    const user = await User.findById(userId).select("-password");
+    if (!user) {
+      return res.status(401).send("User not found");
+    }
 
-//   if (token === "XYZ123") {
-//     next();
-//   } else {
-//     res.status(401).send("Unauthorized Access");
-//   }
-// };
+    req.user = user;
+    next();
+  } catch (err) {
+    res.status(401).send("Invalid or expired token");
+  }
+};
 
-// module.exports = { adminAuth, userAuth };
+module.exports = { userAuth };
+
