@@ -9,7 +9,7 @@ const fixPassword = async () => {
         console.log("Database connected");
 
         const targetUserId = "695a67d6e224032a24a51c4a"; // From your logs
-        const newPassword = "Jake@123";
+        const newPassword = "Jake@1235678";
 
         console.log(`Finding user ${targetUserId}...`);
         const user = await User.findById(targetUserId);
